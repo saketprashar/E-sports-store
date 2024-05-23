@@ -3,7 +3,8 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
-from .models import Category, Item
+from .models import Category, Item, Cart
+
 
 def items(request):
     query = request.GET.get('query', '')
@@ -77,3 +78,10 @@ def delete(request, pk):
     item.delete()
 
     return redirect('dashboard:index')
+
+
+@login_required
+def order_place(request):
+    # cart_items = Cart.objects.all()
+    # print(cart_items)
+    return render(request, 'item/order_placed.html')

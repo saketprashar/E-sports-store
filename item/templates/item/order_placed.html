@@ -1,0 +1,61 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-md flex flex-col justify-center items-center">
+    <h1 class="text-2xl font-semibold mb-4">Payment Details</h1>
+    <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2">Card Details</div>
+        <img src="{% static 'payment/barcodeimage.jpg' %}" alt="">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="cardNumber">
+            Card Number
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cardNumber" type="text" placeholder="Enter your card number">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="expirationDate">
+            Expiration Date
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="expirationDate" type="text" placeholder="MM / YY">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="cvv">
+            CVV
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cvv" type="text" placeholder="CVV">
+        </div>
+        <button id="payButton" class="p-2 bg-green-500 rounded-xl">Pay Now</button>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="hidden mt-6 text-center">
+      <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+      <h2 class="text-xl font-semibold mt-2">Your order has been placed successfully!</h2>
+      <p class="text-gray-600">Thank you for your purchase. You will receive an email confirmation shortly.</p>
+      <a href="/" class="text-blue-500 hover:text-purple-500">Continue Shopping....</a>
+    </div>
+  </div>
+</div>
+
+<!-- Include Tailwind CSS for responsive design -->
+<script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+<!-- JavaScript for showing success message -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const payButton = document.getElementById('payButton');
+    const successMessage = document.getElementById('successMessage');
+
+    payButton.addEventListener('click', function () {
+      // Hide the pay button
+      payButton.classList.add('hidden');
+      // Show the success message
+      successMessage.classList.remove('hidden');
+    });
+  });
+</script>
+{% endblock content %}

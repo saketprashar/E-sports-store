@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<h1>Cart</h1>
+
+{% if cart %}
+<ul class="flex flex-row gap-2 justify-center">
+    {% for cart_item in cart.cartitem_set.all %}
+    <li class="bg-slate-200">
+        {% if cart_item.item.image %}
+        <img src="{{ cart_item.item.image.url }}" alt="{{ cart_item.item.name }}" style="max-width: 100px; max-height: 100px;">
+        {% endif %}
+        <span>{{ cart_item.quantity }} x {{ cart_item.item.name }} - ₹{{ cart_item.item.price }}</span>
+        <a class="block"href="/cart/delete/{{cart_item.id}}"><button class="p-2 bg-red-500 rounded-3xl">Remove</button></a>
+    </li>
+    {% endfor %}
+    
+</ul>
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+<a href="/items/order_placed/?{% for cart_item in cart.cartitem_set.all %}item_ids={{ cart_item.id }}{% if not forloop.last %}&{% endif %}{% endfor %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-500">Buy Now</a>
+<span class="bg-green-500 text-white p-3 rounded-2xl">Price: ₹{{price}}</span>
+{% comment %} <a href="/item/order_placed/" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-500">Buy Now</a> {% endcomment %}
+{% endblock %}

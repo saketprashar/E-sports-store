@@ -1,20 +1,46 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}Welcome{% endblock %}
 
 {% block content %}
-    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-        <h2 class="mb-12 text-2xl text-center">Newest items</h2>
+
+
+
+<div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static "ui/badminton-player.jpg" %}" class="d-block w-full" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static "ui/tennis-player.jpg" %}" class="d-block w-full" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static "ui/cricket-player.png" %}" class="d-block w-full" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+    <div class="mt-4 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Products</h2>
 
         <div class="grid grid-cols-3 gap-3">
             {% for item in items %}
                 <div>
-                    <a href="{% url 'item:detail' item.id %}">
+                    <a href="{% url 'item:detail' item.id %}" class="flex flex-col justify-center items-center bg-slate-200 rounded-3xl">
                         <div>
-                            <img src="{{ item.image.url }}" class="rounded-t-xl">
+                            <img src="{{ item.image.url }}" class="h-48 rounded-t-xl">
                         </div>
 
-                        <div class="p-6 bg-white rounded-b-xl">
+                        <div class="p-6  rounded-b-xl">
                             <h2 class="text-2xl">{{ item.name }}</h2>
                             <p class="text-gray-500">Price: {{ item.price }}</p>
                         </div>
@@ -40,4 +66,35 @@
             {% endfor %}
         </div>
     </div>
+
+    <script>
+        {% comment %} document.addEventListener("DOMContentLoaded", function () {
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        let currentIndex = 0;
+        const totalItems = carouselItems.length;
+
+        function showSlide(index) {
+        carouselItems.forEach(item => {
+            item.classList.remove('opacity-100');
+            item.classList.add('opacity-0', 'transition-opacity');
+        });
+        carouselItems[index].classList.remove('opacity-0');
+        carouselItems[index].classList.add('opacity-100');
+        }
+
+        function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalItems;
+        showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+        showSlide(currentIndex);
+        }
+
+        showSlide(currentIndex);
+
+        setInterval(nextSlide, 3000); // Auto slide every 3 seconds
+    }); {% endcomment %}
+    </script>
 {% endblock %}
